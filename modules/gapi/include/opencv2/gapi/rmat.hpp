@@ -85,9 +85,9 @@ public:
     public:
         virtual ~Adapter() = default;
         virtual GMatDesc desc() const = 0;
-        // Implemetation is responsible for setting the appropriate callback to
+        // Implementation is responsible for setting the appropriate callback to
         // the view when accessed for writing, to ensure that the data from the view
-        // is tranferred to the device when the view is destroyed
+        // is transferred to the device when the view is destroyed
         virtual View access(Access) const = 0;
     };
     using AdapterP = std::shared_ptr<Adapter>;
@@ -103,13 +103,13 @@ public:
     // transferred to the device
     View access(Access a) const { return m_adapter->access(a); }
 
-    // Check that underlying RMat adapter is of the partucular type
+    // Check that underlying RMat adapter is of the particular type
     template<typename T> bool holds() const
     {
         static_assert(std::is_base_of<Adapter, T>::value, "T is not derived from Adapter!");
         return dynamic_cast<T*>(m_adapter.get()) != nullptr;
     }
-    // Cast underlying RMat adapter to the partucular adapter type,
+    // Cast underlying RMat adapter to the particular adapter type,
     template<typename T> T& get() const
     {
         static_assert(std::is_base_of<Adapter, T>::value, "T is not derived from Adapter!");
